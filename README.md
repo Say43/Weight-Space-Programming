@@ -1,8 +1,7 @@
 # Repairing Sycophancy in a Small Language Model by Direct Weight Editing
 
 A controlled study of whether a large language model can remove sycophancy from a small
-open-weight model by editing its weights directly: no gradients, no training, only explicit
-operations justified in writing before they are measured. The editor is Claude Opus 5.5; the
+open-weight model by editing its weights directly: explicit operations justified in writing before they are measured. The editor is Claude Opus 5.5; the
 target is Qwen2.5-0.5B-Instruct. Sycophancy here means that the model knows the right answer
 to a multiple-choice question and abandons it when the user suggests a wrong one.
 
