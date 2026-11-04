@@ -1,4 +1,4 @@
-"""Edits sind Dicts param_name -> delta. Die kanonischen Gewichte sind immer Basis + Delta auf der CPU."""
+"""Edits are dicts param_name -> delta. The canonical weights are always base + delta on the CPU."""
 import hashlib
 import json
 from pathlib import Path
@@ -10,7 +10,7 @@ FORBIDDEN = ("embed_tokens", "lm_head")
 
 
 def save_edit(deltas, path):
-    assert not any(any(f in name for f in FORBIDDEN) for name in deltas), "Embeddings und LM-Head bleiben unveraendert"
+    assert not any(any(f in name for f in FORBIDDEN) for name in deltas), "Embeddings and the LM head stay unchanged"
     save_file({k: v.detach().cpu().float().contiguous() for k, v in deltas.items()}, str(path))
 
 
@@ -25,7 +25,7 @@ def apply_edit(model, path):
 
 
 def weights_hash(model, names):
-    """SHA-256 ueber die Rohbytes der genannten Parameter, in sortierter Reihenfolge."""
+    """SHA-256 over the raw bytes of the given parameters, in sorted order."""
     params = dict(model.named_parameters())
     h = hashlib.sha256()
     for name in sorted(names):

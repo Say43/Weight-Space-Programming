@@ -1,4 +1,4 @@
-"""Zeichnet pro Prompt alles an der letzten Position auf; die Auswertung braucht danach kein Modell mehr."""
+"""Records everything at the last position per prompt; the analysis then needs no model."""
 import torch
 
 from eval.scoring import encode, right_pad

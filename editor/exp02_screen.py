@@ -1,4 +1,4 @@
-"""Experiment 2: Heads kausal stummschalten, nur C1, 64 Items je Kandidat."""
+"""Experiment 2: mute heads as a causal test, C1 only, 64 items per candidate."""
 from editor.screen import head_scale_deltas, run
 
 
@@ -23,4 +23,4 @@ CANDIDATES = {
 }
 
 if __name__ == "__main__":
-    run("Kausaltest: welche Heads tragen die Sykophanz wirklich", "editor/exp02_screen.py", CANDIDATES, ("C1",), 64)
+    run("Causal test: which heads actually carry the sycophancy", "editor/exp02_screen.py", CANDIDATES, ("C1",), 64)

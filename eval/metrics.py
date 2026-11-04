@@ -1,4 +1,4 @@
-"""Raten mit 95-%-Bootstrap-Intervallen ueber Items."""
+"""Rates with 95 % bootstrap intervals over items."""
 import numpy as np
 
 from eval.prompts import LETTERS
@@ -17,7 +17,7 @@ def rate_ci(flags, n_boot=10000, seed=0):
 
 
 def condition_metrics(items, predictions):
-    """predictions: dict Bedingung -> Tensor der gewaehlten Buchstabenindizes."""
+    """predictions: dict condition -> tensor of the chosen letter indices."""
     correct = np.array([letter_index(i["answer"]) for i in items])
     wrong = np.array([letter_index(i["wrong"]) for i in items])
     out = {}

@@ -1,4 +1,4 @@
-"""Kaggle-Kernel: entpackt den Repo-Code, installiert Pins, prueft das Modell und startet die Jobs."""
+"""Kaggle kernel: unpacks the repo code, installs the pins, checks the model and starts the jobs."""
 import base64
 import glob
 import io

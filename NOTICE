@@ -1,28 +1,28 @@
-Weight-Space Programming gegen Sykophanz
+Repairing Sycophancy in a Small Language Model by Direct Weight Editing
 Copyright 2026 Say43
 
-Dieses Projekt steht unter der Apache License, Version 2.0 (siehe LICENSE).
+This project is licensed under the Apache License, Version 2.0 (see LICENSE).
 
-MODIFIKATION EINES DRITTWERKS
------------------------------
-Die Dateien edits/e1.safetensors, edits/e2.safetensors und edits/e3.safetensors
-sind Differenzen (Deltas) zu den Gewichten des folgenden Werks und damit
-Modifikationen davon:
+MODIFICATION OF A THIRD-PARTY WORK
+----------------------------------
+The files edits/e1.safetensors, edits/e2.safetensors and edits/e3.safetensors
+are differences (deltas) to the weights of the following work and are therefore
+modifications of it:
 
   Qwen2.5-0.5B-Instruct, Qwen Team, Alibaba Cloud
   https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct
   Commit 7ae557604adf67be50417f59c2c2f167def9a775
-  Lizenz: Apache License, Version 2.0
+  License: Apache License, Version 2.0
 
-Geaendert wurde im Jahr 2026 durch dieses Projekt: k_proj der Layer 9 bis 18,
-1.146.880 von 494.032.768 Gewichten. Die vollstaendige Beschreibung steht in
-edits/README.md und report/report.md. Die Originalgewichte sind nicht enthalten.
-Dieses Projekt steht in keiner Verbindung zu Alibaba Cloud oder dem Qwen-Team.
+Changed by this project in 2026: k_proj of layers 9 to 18, 1 146 880 of
+494 032 768 weights. The full description is in edits/README.md and
+report/report.md. The original weights are not included. This project is not
+affiliated with or endorsed by Alibaba Cloud or the Qwen team.
 
-GENUTZT, ABER NICHT ENTHALTEN
------------------------------
-Die folgenden Werke werden zur Laufzeit von den Originalquellen geladen. Keines
-davon ist Teil dieses Repos, und es gilt jeweils deren eigene Lizenz.
+USED BUT NOT INCLUDED
+---------------------
+The following works are downloaded from their original sources at run time.
+None of them is part of this repository, and their own licenses apply.
 
 Qwen2.5-1.5B-Instruct, Qwen Team, Alibaba Cloud
   https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct
@@ -42,18 +42,18 @@ MMLU (cais/mmlu)
 
 WikiText-2 (Salesforce/wikitext, wikitext-2-raw-v1)
   https://huggingface.co/datasets/Salesforce/wikitext
-  Commit b08601e04326c79dfdd32d625aee71d232d685c3, CC BY-SA 3.0 und GFDL
+  Commit b08601e04326c79dfdd32d625aee71d232d685c3, CC BY-SA 3.0 and GFDL
 
-Die aggregierten Metriken in logs/, logs_05b/ und report/ sind eigene Messungen.
-Sie enthalten keine Fragen oder Texte aus diesen Datensaetzen.
+The aggregate metrics in logs/, logs_05b/ and report/ are measurements of this
+project. They contain no questions or texts from these datasets.
 
-Die Bibliotheken in requirements.txt werden nicht mitgeliefert.
+The libraries listed in requirements.txt are not distributed with this project.
 
-BEZUG
------
-Der Versuch baut auf der Idee aus diesem Beitrag auf; es wurde kein Code oder
-Text daraus uebernommen:
+RELATED WORK
+------------
+This study builds on the idea of the following post. No code or text was taken
+from it.
 
-  R. T., "Weight-Space Programming"
+  "Weight-Space Programming"
   https://rikiyat.github.io/blog/weight-space-programming/
   Logs: https://github.com/RikiyaT/lm_understand-logs

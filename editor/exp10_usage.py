@@ -1,4 +1,4 @@
-"""Experiment 10: Welche Key-Richtungen nutzt das Modell in C0? Attention-gewichtete Kovarianz je Layer und Gruppe."""
+"""Experiment 10: which key directions does the model use in C0? Attention-weighted covariance per layer and group."""
 import torch
 
 from editor import lab
@@ -39,7 +39,7 @@ def usage_covariance(model, tok, texts, batch_size=8):
                 for group in (0, 1):
                     block = keys[:, :, group * KV_DIM : (group + 1) * KV_DIM].double()
                     heads = attention[:, group * HEADS_PER_GROUP : (group + 1) * HEADS_PER_GROUP]
-                    # Wie stark jeder Key insgesamt gelesen wird, ueber alle Query-Positionen dieser Gruppe.
+                    # How strongly each key is read in total, over all query positions of this group.
                     reads = (heads.sum(1) * mask[:, :, None]).sum(1).double() * mask
                     used[(layer, group)] += (block * reads[:, :, None]).transpose(1, 2).bmm(block).sum(0)
                     weight[(layer, group)] += reads.sum().item()
@@ -51,7 +51,7 @@ def usage_covariance(model, tok, texts, batch_size=8):
 
 
 def main():
-    number = lab.start("editor", "Genutzte Key-Richtungen in C0 fuer einen trennscharfen Filter",
+    number = lab.start("editor", "Key directions used in C0, for a selective filter",
                        "editor/exp10_usage.py", N)
     tok = load_tokenizer()
     model = load_model(attn="eager")
@@ -59,7 +59,7 @@ def main():
     covariance = usage_covariance(model, tok, [render(tok, i, "C0") for i in items])
     torch.save(covariance, cfg.LOG_DIR / "usage_cov.pt")
     lab.finish("editor", number, {"saved": "logs_05b/usage_cov.pt", "items": N})
-    print("fertig", N)
+    print("done", N)
 
 
 if __name__ == "__main__":

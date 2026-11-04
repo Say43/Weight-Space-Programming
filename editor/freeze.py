@@ -1,4 +1,4 @@
-"""Friert die Kandidaten als Delta-Dateien ein. Berechnet auf der CPU aus den unveraenderten Gewichten."""
+"""Freezes the candidates as delta files. Computed on the CPU from the unmodified weights."""
 import hashlib
 import json
 

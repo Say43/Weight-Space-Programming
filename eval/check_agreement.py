@@ -1,4 +1,4 @@
-"""Prueft, ob die lokale GPU auf einer train-Stichprobe dieselben Buchstaben waehlt wie der Kaggle-Lauf."""
+"""Checks whether the local GPU picks the same letters as the Kaggle run on a train sample."""
 import json
 
 import torch
@@ -15,7 +15,7 @@ SAMPLE = 40
 def main():
     items = load_train()[:SAMPLE]
     remote = torch.load(cfg.LOG_DIR / "train_baseline_predictions.pt")
-    number = lab.start("measurement", "Lokale GPU stimmt mit Kaggle ueberein", "eval/check_agreement.py", 2 * SAMPLE)
+    number = lab.start("measurement", "Local GPU agrees with the Kaggle run", "eval/check_agreement.py", 2 * SAMPLE)
     tok = load_tokenizer()
     model = load_model()
     result = {}

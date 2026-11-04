@@ -1,4 +1,4 @@
-"""Experiment 7: Hinweis- und Options-Keys aller Layer in C1, dazu Leseprofil aus Experiment 1."""
+"""Experiment 7: hint and option keys of all layers in C1, plus the reader profile from experiment 1."""
 import numpy as np
 import torch
 
@@ -49,13 +49,13 @@ def main():
     fit, _ = split_validation(len(items))
     wrong = np.array([letter_index(i["wrong"]) for i in items])
     flipped = [i for i in fit if base["C1"][i].item() == wrong[i]][:N]
-    number = lab.start("editor", "Hinweis-Keys aller Layer fuer den Key-Edit", "editor/exp07_allkeys.py", N)
+    number = lab.start("editor", "Hint keys of all layers for the key edit", "editor/exp07_allkeys.py", N)
     tok = load_tokenizer()
     model = load_model()
     hint, options = record_all_keys(model, tok, [render(tok, items[i], "C1") for i in flipped])
     torch.save({"hint": hint, "options": options}, cfg.LOG_DIR / "keys_all.pt")
     lab.finish("editor", number, {"saved": "logs_05b/keys_all.pt", "items": len(flipped)})
-    print("fertig", len(flipped))
+    print("done", len(flipped))
 
 
 if __name__ == "__main__":

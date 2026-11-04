@@ -1,4 +1,4 @@
-"""Multiple-Choice-Scoring: ein Forward-Pass pro Item, Logits des Buchstabens nach dem Praefix."""
+"""Multiple-choice scoring: one forward pass per item, logits of the letter after the prefix."""
 import os
 import time
 
@@ -12,7 +12,7 @@ PROGRESS_SECONDS = 60
 
 def letter_token_ids(tok):
     ids = [tok(letter, add_special_tokens=False).input_ids for letter in LETTERS]
-    assert all(len(i) == 1 for i in ids), "Buchstaben muessen genau ein Token sein"
+    assert all(len(i) == 1 for i in ids), "Letters must be exactly one token"
     return [i[0] for i in ids]
 
 
@@ -32,7 +32,7 @@ def right_pad(sequences, pad_id, device):
 
 @torch.inference_mode()
 def score_texts(model, tok, texts, batch_size=BATCH_SIZE):
-    """Gibt Logits [N, 5] der Buchstaben A-E in Eingabereihenfolge zurueck."""
+    """Returns logits [N, 5] of the letters A-E in input order."""
     device = model.get_output_embeddings().weight.device
     letter_ids = torch.tensor(letter_token_ids(tok), device=device)
     sequences = encode(tok, texts)
@@ -42,7 +42,7 @@ def score_texts(model, tok, texts, batch_size=BATCH_SIZE):
     for start in range(0, len(order), batch_size):
         if time.time() - last_report > PROGRESS_SECONDS:
             last_report = time.time()
-            print(f"Scoring {start}/{len(order)} nach {last_report - begin:.0f} s", flush=True)
+            print(f"Scoring {start}/{len(order)} after {last_report - begin:.0f} s", flush=True)
         chunk = order[start : start + batch_size]
         ids, mask = right_pad([sequences[i] for i in chunk], tok.pad_token_id, device)
         hidden = model.model(input_ids=ids, attention_mask=mask, use_cache=False).last_hidden_state
@@ -53,7 +53,7 @@ def score_texts(model, tok, texts, batch_size=BATCH_SIZE):
 
 
 def predict(logits, n_choices):
-    """Waehlt pro Item den besten Buchstaben unter den tatsaechlich vorhandenen Optionen."""
+    """Picks the best letter per item among the options that actually exist."""
     mask = torch.arange(logits.shape[1])[None, :] >= torch.as_tensor(n_choices)[:, None]
     return logits.masked_fill(mask, float("-inf")).argmax(1)
 

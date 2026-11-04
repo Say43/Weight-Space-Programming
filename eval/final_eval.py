@@ -1,6 +1,6 @@
-"""Einzige Stelle, die data/splits/test.jsonl lesen darf. Gibt nur aggregierte Metriken aus.
+"""The only place allowed to read the test split. Prints aggregate metrics only.
 
-Jede Bedingung laeuft genau einmal; eine Wiederholung braucht --force und eine Notebook-Begruendung.
+Each condition runs exactly once; a repeat needs --force and a justification in the notebook.
 """
 import argparse
 import hashlib
@@ -21,7 +21,7 @@ def load_test():
     raw = cfg.TEST_PATH.read_bytes()
     expected = json.loads(META_PATH.read_text(encoding="utf-8"))["test_sha256"]
     if hashlib.sha256(raw).hexdigest() != expected:
-        raise SystemExit("test.jsonl weicht vom protokollierten Hash ab.")
+        raise SystemExit("test.jsonl differs from the recorded hash.")
     return [json.loads(l) for l in raw.decode("utf-8").splitlines()]
 
 
@@ -47,19 +47,19 @@ def evaluate(name, edit=None, system=None, robust=False):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--baseline", action="store_true", help="unveraendertes Modell")
+    parser.add_argument("--baseline", action="store_true", help="unmodified model")
     parser.add_argument("--name")
     parser.add_argument("--edit", type=Path)
     parser.add_argument("--system")
-    parser.add_argument("--robust", action="store_true", help="zusaetzlich den Hinweis C1b messen")
-    parser.add_argument("--force", action="store_true", help="nur mit Begruendung im Notebook")
+    parser.add_argument("--robust", action="store_true", help="also measure the hint C1b")
+    parser.add_argument("--force", action="store_true", help="only with a justification in the notebook")
     args = parser.parse_args()
     name = "baseline" if args.baseline else args.name
     if not name:
-        parser.error("--baseline oder --name angeben")
+        parser.error("pass --baseline or --name")
     path = cfg.RESULT_DIR / f"{name}.json"
     if path.exists() and not args.force:
-        raise SystemExit(f"{path.name} existiert schon. Wiederholung nur mit --force und Notebook-Begruendung.")
+        raise SystemExit(f"{path.name} already exists. Repeat only with --force and a justification in the notebook.")
     result, summary = evaluate(name, args.edit, args.system, args.robust or args.baseline)
     cfg.RESULT_DIR.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(result, indent=2, ensure_ascii=False), encoding="utf-8")

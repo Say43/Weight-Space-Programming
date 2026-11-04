@@ -1,4 +1,4 @@
-"""Erzeugt report/pareto.png aus report/results_05b/*.json und druckt die Kennzahlen."""
+"""Builds report/pareto.png from report/results_05b/*.json and prints the key figures."""
 import json
 
 import matplotlib
@@ -8,10 +8,10 @@ import matplotlib.pyplot as plt
 
 from eval import config as cfg
 
-NAMES = {"baseline": "Ausgang", "b1": "B1", "b2": "B2", "b3": "B3", "e1": "e1 (primär)", "e2": "e2", "e3": "e3"}
-GROUPS = {"Ausgangsmodell": (["baseline"], "#1baf7a", "s"),
+NAMES = {"baseline": "Unedited", "b1": "B1", "b2": "B2", "b3": "B3", "e1": "e1 (primary)", "e2": "e2", "e3": "e3"}
+GROUPS = {"Unedited model": (["baseline"], "#1baf7a", "s"),
           "Baselines": (["b1", "b2", "b3"], "#eb6834", "^"),
-          "Editor-Kandidaten": (["e1", "e2", "e3"], "#2a78d6", "o")}
+          "Editor candidates": (["e1", "e2", "e3"], "#2a78d6", "o")}
 SURFACE, INK, MUTED = "#fcfcfb", "#0b0b0b", "#52514e"
 OFFSETS = {"baseline": (8, 6), "b1": (8, 6), "b2": (-22, 6), "b3": (8, -12), "e1": (8, 4), "e2": (8, 2), "e3": (8, 2)}
 
@@ -44,22 +44,22 @@ def main():
     results = {n: load(n) for n in NAMES}
     base = results["baseline"]
     figure, axes = plt.subplots(1, 2, figsize=(10, 4.8), sharey=True, facecolor=SURFACE)
-    panel(axes[0], results, base, "mmlu", "MMLU-Verlust in Prozentpunkten")
-    panel(axes[1], results, base, "C0_acc", "C0-Verlust in Prozentpunkten")
+    panel(axes[0], results, base, "mmlu", "MMLU loss (percentage points)")
+    panel(axes[1], results, base, "C0_acc", "C0 loss (percentage points)")
     axes[0].set_xlim(-1.2, 1.6)
     axes[1].set_xlim(-0.5, 10.5)
     axes[0].set_ylim(0, 90)
-    axes[0].set_ylabel("C1-Flip-Rate in % (kleiner ist besser)", color=MUTED, fontsize=10)
+    axes[0].set_ylabel("C1 flip rate in % (lower is better)", color=MUTED, fontsize=10)
     axes[0].legend(loc="lower left", frameon=False, fontsize=9, labelcolor=INK)
-    figure.suptitle("Editor-Kandidaten senken die Flip-Rate am stärksten, bei kleinem C0-Verlust",
+    figure.suptitle("The editor candidates lower the flip rate most, at a small cost in C0",
                     x=0.07, ha="left", fontsize=12, color=INK)
-    figure.text(0.07, 0.905, "Test-Split, 999 Items, Balken: 95-%-Bootstrap-Intervall. Unten links ist am besten.",
+    figure.text(0.07, 0.905, "Test split, 999 items. Bars: 95 % bootstrap interval. Bottom left is best.",
                 fontsize=9, color=MUTED)
     figure.tight_layout(rect=(0, 0, 1, 0.9))
     figure.savefig(cfg.ROOT / "report" / "pareto.png", dpi=160, facecolor=SURFACE)
     e1 = results["e1"]
     print("rel C1", 1 - e1["C1_flip"]["rate"] / base["C1_flip"]["rate"],
-          "konservativ", 1 - e1["C1_flip"]["ci95"][1] / base["C1_flip"]["ci95"][0],
+          "conservative", 1 - e1["C1_flip"]["ci95"][1] / base["C1_flip"]["ci95"][0],
           "rel C1b", 1 - e1["C1b_flip"]["rate"] / base["C1b_flip"]["rate"],
           "PPL %", 100 * (e1["perplexity"]["perplexity"] / base["perplexity"]["perplexity"] - 1),
           "B1 PPL %", 100 * (results["b1"]["perplexity"]["perplexity"] / base["perplexity"]["perplexity"] - 1),

@@ -4,13 +4,13 @@ __pycache__/
 .cache/
 kernel_out/
 
-# Enthalten Fragen aus ARC im Wortlaut (CC BY-SA 4.0). data.build_splits erzeugt sie neu.
+# Contain ARC questions verbatim (CC BY-SA 4.0). data.build_splits regenerates them.
 data/splits*/
 
-# Lokale Pfade und grosse Zwischenstaende
+# Local paths and large intermediate files
 logs*/*.log
 logs*/*.pt
 
-# Mit je 330 MB zu gross fuer GitHub. baselines.run_b1 erzeugt sie neu.
+# 330 MB each, too large for GitHub. baselines.run_b1 regenerates them.
 edits/b1.safetensors
 edits/b2.safetensors

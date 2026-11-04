@@ -1,4 +1,4 @@
-"""Ausgangsmessung auf train (Phase 1). Verbraucht kein Editor-Budget."""
+"""Baseline measurement on train (phase 1). Does not use the editor budget."""
 import json
 import time
 
@@ -20,7 +20,7 @@ def load_train():
 
 def main():
     items = load_train()
-    number = lab.start("measurement", "Ausgangsmessung Phase 1", "eval/measure_train.py", 4 * len(items))
+    number = lab.start("measurement", "Baseline measurement, phase 1", "eval/measure_train.py", 4 * len(items))
     tok = load_tokenizer()
     model = load_model()
     begin = time.time()

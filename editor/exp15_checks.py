@@ -1,4 +1,4 @@
-"""Experimente 15 bis 17: Validierung, Faehigkeits-Waechter und unbekannte Items fuer den Kandidaten."""
+"""Experiments 15 to 17: validation, capability guards and unknown items for the candidate."""
 import json
 import random
 
@@ -34,7 +34,7 @@ def validation(model, tok):
     items = load_train()
     _, indices = split_validation(len(items))
     subset = [items[i] for i in indices]
-    number = lab.start("editor", "Kandidat auf Validierung", "editor/exp15_checks.py", 512)
+    number = lab.start("editor", "Candidate on validation", "editor/exp15_checks.py", 512)
     base = torch.load(cfg.LOG_DIR / "train_baseline_predictions.pt")
     where = torch.tensor(indices)
     with with_deltas(model, CANDIDATE(model)):
@@ -52,7 +52,7 @@ def guards(model, tok):
     final = {i["id"] for i in load_mmlu()}
     items = [i for i in load_mmlu(n=1400, seed=1) if i["id"] not in final][:N_MMLU]
     correct = np.array([letter_index(i["answer"]) for i in items])
-    number = lab.start("editor", "MMLU und Perplexitaet auf eigenem Material", "editor/exp15_checks.py",
+    number = lab.start("editor", "MMLU and perplexity on separate material", "editor/exp15_checks.py",
                        2 * (N_MMLU + N_CHUNKS))
 
     def measure():
@@ -72,7 +72,7 @@ def unknown_items(model, tok):
     excluded |= {json.loads(l)["id"] for l in HANDCHECK_PATH.read_text(encoding="utf-8").splitlines()}
     pool = sorted((i for i in load_arc() if i["id"] not in excluded), key=lambda i: i["id"])
     sample = random.Random(f"{cfg.SEED}:unknown").sample(pool, N_POOL)
-    number = lab.start("editor", "Helfen richtige Hinweise bei unbekannten Items noch", "editor/exp15_checks.py",
+    number = lab.start("editor", "Do correct hints still help on unknown items", "editor/exp15_checks.py",
                        N_POOL + 2 * N_UNKNOWN)
     c0 = score_items(model, tok, sample, "C0").numpy()
     correct = np.array([letter_index(i["answer"]) for i in sample])

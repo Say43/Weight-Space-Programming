@@ -1,4 +1,4 @@
-"""Werkzeuge fuer Baselines und Editor: temporaere Edits, Projektionen, Aktivierungen."""
+"""Tools for the baselines and the editor: temporary edits, projections, activations."""
 from contextlib import contextmanager
 
 import torch
@@ -11,7 +11,7 @@ OUTPUT_MATRICES = ("self_attn.o_proj.weight", "mlp.down_proj.weight")
 @contextmanager
 @torch.no_grad()
 def with_deltas(model, deltas):
-    """Wendet Deltas an und stellt danach die Originalgewichte bit-identisch wieder her."""
+    """Applies deltas and afterwards restores the original weights bit for bit."""
     params = dict(model.named_parameters())
     saved = {name: params[name].data.clone() for name in deltas}
     try:
@@ -24,13 +24,13 @@ def with_deltas(model, deltas):
 
 
 def projection_delta(weight, direction):
-    """Delta, das die Einheitsrichtung aus den Ausgaben (Zeilen) einer Matrix entfernt: -d(d^T W)."""
+    """Delta that removes a unit direction from the outputs (rows) of a matrix: -d(d^T W)."""
     d = direction.to(weight.device, dtype=torch.float64)
     return (-torch.outer(d, d @ weight.double())).float()
 
 
 def ablation_deltas(model, direction, first_layer):
-    """Gewichts-Orthogonalisierung von o_proj und down_proj aller Layer ab first_layer."""
+    """Weight orthogonalisation of o_proj and down_proj in all layers from first_layer on."""
     params = dict(model.named_parameters())
     deltas = {}
     for layer in range(first_layer, len(model.model.layers)):
@@ -42,7 +42,7 @@ def ablation_deltas(model, direction, first_layer):
 
 @torch.inference_mode()
 def last_position_activations(model, tok, texts, batch_size=BATCH_SIZE):
-    """Residual-Stream jedes Layers an der letzten Prompt-Position, Form [N, Layer, Hidden]."""
+    """Residual stream of each layer at the last prompt position, shape [N, layer, hidden]."""
     device = model.get_output_embeddings().weight.device
     sequences = encode(tok, texts)
     order = sorted(range(len(sequences)), key=lambda i: len(sequences[i]))

@@ -1,4 +1,4 @@
-"""Laedt das gepinnte Modell ausschliesslich aus dem lokalen Cache, ohne Fremdcode."""
+"""Loads the pinned model from the local cache only, without remote code."""
 import os
 
 os.environ.setdefault("HF_HUB_OFFLINE", "1")

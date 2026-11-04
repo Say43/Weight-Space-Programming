@@ -1,4 +1,4 @@
-"""Wohin schauen die Heads aus Layer 16 in C0 und C1? (ohne Modelllauf)"""
+"""Where do the heads of layer 16 look in C0 and C1? (no model run)"""
 import torch
 
 from editor.an02_positions import option_positions
@@ -9,10 +9,10 @@ items, data = load_probe("probe01.pt")
 HEADS = [(16, h) for h in (2, 3, 7, 9, 11, 12)] + [(9, 13), (11, 12), (20, 8), (20, 7)]
 
 
-print("Optionstoken:", [tok.decode([t]) for t in data["C0"]["ids"][0][30:42]])
+print("Option tokens:", [tok.decode([t]) for t in data["C0"]["ids"][0][30:42]])
 for condition in ("C0", "C1"):
     record = data[condition]
-    print(condition, "Head | richtige Option | Hinweis-Option | andere Optionen | Hinweisbuchstabe | Rest")
+    print(condition, "head | correct option | hinted option | other options | hint letter | rest")
     for layer, head in HEADS:
         rows = []
         for n, (item, ids) in enumerate(zip(items, record["ids"])):

@@ -1,4 +1,4 @@
-"""Rechnet die Attention aus q und k nach und tauscht sie kontrafaktisch (ohne Modelllauf)."""
+"""Recomputes attention from q and k and swaps them counterfactually (no model run)."""
 import math
 
 import torch
@@ -17,7 +17,7 @@ frequencies = 1.0 / THETA ** (torch.arange(0, HEAD_DIM, 2).float() / HEAD_DIM)
 
 
 def rotate(x, positions):
-    """RoPE wie in Qwen2: x cos + rotate_half(x) sin, je Position."""
+    """RoPE as in Qwen2: x cos + rotate_half(x) sin, per position."""
     angles = positions[:, None] * frequencies
     embedding = torch.cat([angles, angles], -1)
     half = HEAD_DIM // 2
@@ -43,7 +43,7 @@ def attention(query, keys):
 
 
 directions = hint_key_directions()
-print("Head | Hinweisbuchstabe: echt | q aus C0 | k ohne d | k mit s=2 || Optionen: echt | q aus C0 | k ohne d | k mit s=2")
+print("head | hint letter: actual | q from C0 | k without d | k with s=2 || options: actual | q from C0 | k without d | k with s=2")
 for head in HEADS:
     group = 0 if head < 7 else 1
     d = directions[group].float()
@@ -61,7 +61,7 @@ for head in HEADS:
     mean = torch.tensor(rows).mean(0)
     print(head, " ".join(f"{v:.3f}" for v in mean[:4]), "||", " ".join(f"{v:.3f}" for v in mean[4:]))
 delta = torch.stack([c1["q"][n] - c0["q"][n] for n in range(len(c1["q"]))])
-print("Query-Verschiebung: mittlere Norm je Head / Norm der mittleren Verschiebung / Norm q")
+print("Query shift: mean norm per head / norm of the mean shift / norm of q")
 for head in HEADS:
     block = delta[:, head * HEAD_DIM : (head + 1) * HEAD_DIM]
     norm = torch.stack(c1["q"])[:, head * HEAD_DIM : (head + 1) * HEAD_DIM].norm(dim=1).mean()

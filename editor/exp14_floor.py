@@ -1,4 +1,4 @@
-"""Experiment 14: Rauschboden von C0 mit gleich grossem Zufalls-Edit, dazu staerkerer Options-Schutz."""
+"""Experiment 14: noise floor of C0 with a random edit of equal size, plus stronger option protection."""
 import torch
 
 from editor.exp08_layers import ALL_MIDDLE
@@ -8,7 +8,7 @@ from eval import config as cfg
 
 
 def permuted(build):
-    """Vertauscht die Zeilen des Deltas je Gruppe: gleiche Norm und gleicher Rang, sinnlose Richtung."""
+    """Permutes the delta rows per group: same norm and rank, meaningless direction."""
     generator = torch.Generator().manual_seed(cfg.SEED)
 
     def wrapped(model):
@@ -23,6 +23,6 @@ def permuted(build):
 
 
 if __name__ == "__main__":
-    run("Rauschboden von C0 und staerkerer Options-Schutz", "editor/exp14_floor.py",
-        {"zufall_s0.35": permuted(filter_deltas(ALL_MIDDLE, strength=0.35, option_weight=1.0)),
+    run("Noise floor of C0 and stronger option protection", "editor/exp14_floor.py",
+        {"random_s0.35": permuted(filter_deltas(ALL_MIDDLE, strength=0.35, option_weight=1.0)),
          "prot3_s0.4": filter_deltas(ALL_MIDDLE, strength=0.4, option_weight=3.0)}, ("C0", "C1"), 128)

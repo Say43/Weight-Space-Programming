@@ -1,4 +1,4 @@
-"""Sauberkeits-Audit: kein ausfuehrbarer Code im Modell, keine Netzwerkverbindung im Betrieb."""
+"""Integrity audit: no executable code in the model, no network connection at runtime."""
 import json
 import socket
 import struct
@@ -14,15 +14,15 @@ ALLOWED = {"config.json", "generation_config.json", "LICENSE", "merges.txt", "mo
 
 
 def check(name, ok, detail=""):
-    print(f"[{'OK' if ok else 'FEHLER'}] {name} {detail}")
+    print(f"[{'OK' if ok else 'FAIL'}] {name} {detail}")
     return ok
 
 
 def audit_files(root):
     names = {p.name for p in root.iterdir()}
     return [
-        check("nur erwartete Dateien", names <= ALLOWED, sorted(names - ALLOWED) or ""),
-        check("keine Code-/Pickle-Dateien", not any(Path(n).suffix in CODE_SUFFIXES for n in names)),
+        check("only expected files", names <= ALLOWED, sorted(names - ALLOWED) or ""),
+        check("no code or pickle files", not any(Path(n).suffix in CODE_SUFFIXES for n in names)),
     ]
 
 
@@ -30,9 +30,9 @@ def audit_configs(root):
     results = []
     for name in ("config.json", "tokenizer_config.json", "generation_config.json"):
         conf = json.loads((root / name).read_text(encoding="utf-8"))
-        results.append(check(f"{name}: kein auto_map (Fremdcode)", "auto_map" not in conf))
+        results.append(check(f"{name}: no auto_map (remote code)", "auto_map" not in conf))
     conf = json.loads((root / "config.json").read_text(encoding="utf-8"))
-    results.append(check("Architektur ist die Transformers-eigene", conf["architectures"] == ["Qwen2ForCausalLM"]))
+    results.append(check("architecture is the one built into Transformers", conf["architectures"] == ["Qwen2ForCausalLM"]))
     return results
 
 
@@ -44,9 +44,9 @@ def audit_safetensors(path):
     meta = header.pop("__metadata__", {})
     end = max(v["data_offsets"][1] for v in header.values())
     return [
-        check("Safetensors: Datei besteht lueckenlos aus Tensoren", 8 + header_len + end == size,
-              f"{len(header)} Tensoren, Metadaten={meta}"),
-        check("Safetensors: nur Zahlentypen", {v["dtype"] for v in header.values()} <= {"F16", "BF16", "F32"},
+        check("safetensors: file consists of tensors without gaps", 8 + header_len + end == size,
+              f"{len(header)} tensors, metadata={meta}"),
+        check("safetensors: numeric types only", {v["dtype"] for v in header.values()} <= {"F16", "BF16", "F32"},
               {v["dtype"] for v in header.values()}),
     ]
 
@@ -57,7 +57,7 @@ def audit_network():
 
     def guard(self, address):
         attempts.append(repr(address))
-        raise OSError(f"Netzwerk im Audit gesperrt: {address}")
+        raise OSError(f"Network blocked during the audit: {address}")
 
     socket.socket.connect = guard
     socket.socket.connect_ex = guard
@@ -69,10 +69,10 @@ def audit_network():
                                        add_generation_prompt=True)
         batch = tok(text, return_tensors="pt")
         output = model.generate(**batch, max_new_tokens=8, do_sample=False)
-        print("   Antwort:", tok.decode(output[0, batch.input_ids.shape[1]:], skip_special_tokens=True))
+        print("   Answer:", tok.decode(output[0, batch.input_ids.shape[1]:], skip_special_tokens=True))
     finally:
         socket.socket.connect = real_connect
-    return [check("keine Verbindungsversuche bei Laden und Inferenz", not attempts, attempts or "")]
+    return [check("no connection attempts during loading and inference", not attempts, attempts or "")]
 
 
 if __name__ == "__main__":
@@ -80,5 +80,5 @@ if __name__ == "__main__":
     print("Snapshot:", root)
     results = audit_files(root) + audit_configs(root) + audit_safetensors(root / "model.safetensors")
     results += audit_network()
-    print("ERGEBNIS:", "sauber" if all(results) else "AUFFAELLIG")
+    print("RESULT:", "clean" if all(results) else "SUSPICIOUS")
     sys.exit(0 if all(results) else 1)

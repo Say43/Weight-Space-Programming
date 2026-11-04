@@ -1,6 +1,6 @@
-"""Filtert bekannte Items (C0 richtig, unveraendertes Modell) und teilt sie in train und test.
+"""Filters known items (correct in C0, unmodified model) and splits them into train and test.
 
-Gibt nur Aggregate aus. test.jsonl wird geschrieben, aber nie gedruckt; nur eval/final_eval.py liest es.
+Prints aggregates only. test.jsonl is written but never printed; only eval/final_eval.py reads it.
 """
 import hashlib
 import json
@@ -18,7 +18,7 @@ META_PATH = cfg.LOG_DIR / "splits_meta.json"
 
 
 def split_known(known, seed=cfg.SEED):
-    """Teilt je Stratum 50/50 und kuerzt danach beide Seiten anteilig auf MAX_PER_SPLIT."""
+    """Splits each stratum 50/50, then cuts both sides proportionally to MAX_PER_SPLIT."""
     train, test = {}, {}
     for source in ("ARC-Easy", "ARC-Challenge"):
         pool = sorted((i for i in known if i["source"] == source), key=lambda i: i["id"])

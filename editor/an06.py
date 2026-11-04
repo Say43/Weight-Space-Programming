@@ -1,4 +1,4 @@
-"""Vergleicht orthogonale Projektion und Filter im Spiegel der C0-Nutzung (ohne Modelllauf)."""
+"""Compares the orthogonal projection and the filter against C0 key usage (no model run)."""
 import torch
 
 from editor.keyedit import KV_DIM, direction
@@ -7,7 +7,7 @@ from eval import config as cfg
 keys = torch.load(cfg.LOG_DIR / "keys_all.pt")
 usage = torch.load(cfg.LOG_DIR / "usage_cov.pt")
 RIDGES = (1e-3, 1e-2, 1e-1)
-print("Layer.Gruppe | Leck orthogonal | Leck Filter je ridge (Anteil genutzter Key-Energie, die der Edit veraendert)")
+print("layer.group | leak orthogonal | leak filter per ridge (share of used key energy that the edit changes)")
 for (layer, group), cov in usage.items():
     cols = slice(group * KV_DIM, (group + 1) * KV_DIM)
     hint = keys["hint"][:, layer, cols].mean(0).double()

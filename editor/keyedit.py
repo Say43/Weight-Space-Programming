@@ -1,4 +1,4 @@
-"""Key-Edit in mehreren Layern: Hinweis-Richtung aus den Zeilenbloecken von k_proj entfernen."""
+"""Key edit across several layers: removes the hint direction from the row blocks of k_proj."""
 import torch
 
 from eval import config as cfg
@@ -8,7 +8,7 @@ BOTH = (0, 1)
 
 
 def direction(keys, layer, group):
-    """Mittlerer Hinweis-Key, orthogonal zum mittleren Options-Key, normiert."""
+    """Mean hint key, orthogonal to the mean option key, normalised."""
     cols = slice(group * KV_DIM, (group + 1) * KV_DIM)
     hint = keys["hint"][:, layer, cols].mean(0).double()
     options = keys["options"][:, layer, cols].mean(0).double()
@@ -17,7 +17,7 @@ def direction(keys, layer, group):
 
 
 def multi_key_deltas(spec, strength=1.0):
-    """spec: {layer: gruppen}. Delta = -s d d^T W im Block jeder Gruppe, Rang 1 je Gruppe."""
+    """spec: {layer: groups}. Delta = -s d d^T W in the block of each group, rank 1 per group."""
     keys = torch.load(cfg.LOG_DIR / "keys_all.pt")
 
     def build(model):
@@ -38,9 +38,9 @@ def multi_key_deltas(spec, strength=1.0):
 
 
 def filter_vector(keys, usage, layer, group, ridge, option_weight=0.0):
-    """w = (C + lambda I)^-1 m, normiert auf w^T m = 1; m ist der mittlere Hinweis-Key.
+    """w = (C + lambda I)^-1 m, normalised to w^T m = 1; m is the mean hint key.
 
-    option_weight > 0 mischt die Kovarianz der Options-Keys zu C, mit diesem Anteil an der Spur von C.
+    option_weight > 0 adds the covariance of the option keys to C, with this share of the trace of C.
     """
     cols = slice(group * KV_DIM, (group + 1) * KV_DIM)
     hint = keys["hint"][:, layer, cols].mean(0).double()
@@ -54,7 +54,7 @@ def filter_vector(keys, usage, layer, group, ridge, option_weight=0.0):
 
 
 def filter_deltas(spec, ridge=0.01, strength=1.0, option_weight=0.0):
-    """Schiefe Rang-1-Projektion: Delta = -s r w^T W, mit r = d d^T m."""
+    """Oblique rank-1 projection: Delta = -s r w^T W, with r = d d^T m."""
     keys = torch.load(cfg.LOG_DIR / "keys_all.pt")
     usage = torch.load(cfg.LOG_DIR / "usage_cov.pt")
 

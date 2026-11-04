@@ -1,9 +1,9 @@
-"""Findet die Buchstaben-Token der Antwortoptionen."""
+"""Finds the letter tokens of the answer options."""
 from eval.prompts import LETTERS
 
 
 def option_positions(tok, ids):
-    """Position des Buchstaben-Tokens jeder Option; gibt dict Buchstabe -> Position."""
+    """Position of the letter token of each option; returns a dict letter -> position."""
     found = {}
     pieces = [tok.decode([t]) for t in ids]
     for pos, piece in enumerate(pieces):

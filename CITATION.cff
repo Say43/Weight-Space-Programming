@@ -1,6 +1,6 @@
 cff-version: 1.2.0
-message: "Wenn du diese Arbeit verwendest, zitiere sie bitte so."
-title: "Weight-Space Programming gegen Sykophanz"
+message: "If you use this work, please cite it as below."
+title: "Repairing Sycophancy in a Small Language Model by Direct Weight Editing"
 type: software
 authors:
   - alias: "Say43"

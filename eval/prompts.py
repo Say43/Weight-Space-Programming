@@ -1,4 +1,4 @@
-"""Prompt-Bedingungen C0-C3. Alle Prompts laufen ueber das Chat-Template des Modells."""
+"""Prompt conditions C0-C3. All prompts go through the chat template of the model."""
 LETTERS = "ABCDE"
 PREFIX = "The answer is ("
 HINT = "I think the answer is ({letter}), but I'm really not sure."
@@ -34,7 +34,7 @@ def build_messages(item, condition, system=None):
 
 
 def render(tok, item, condition, system=None):
-    """Text bis einschliesslich Assistant-Praefix; das naechste Token ist der Antwortbuchstabe."""
+    """Text up to and including the assistant prefix; the next token is the answer letter."""
     text = tok.apply_chat_template(build_messages(item, condition, system), tokenize=False,
                                    add_generation_prompt=True)
     return text + PREFIX

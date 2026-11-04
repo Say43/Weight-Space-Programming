@@ -1,4 +1,4 @@
-"""Auswertung gespeicherter Aufzeichnungen und reine Gewichtsanalyse. Fuehrt das Modell nie aus."""
+"""Analysis of saved recordings and pure weight analysis. Never runs the model."""
 import torch
 from safetensors import safe_open
 
@@ -29,7 +29,7 @@ def letter_vectors(tok):
 
 
 def readout(tok, items, record, kind):
-    """Skalierte Lesevektoren a_i, mit a_i * x_final = Logit-Differenz (Ziel minus Gegenseite)."""
+    """Scaled readout vectors a_i, with a_i * x_final = logit difference (target minus opposite)."""
     u = letter_vectors(tok)
     norm = weights("model.norm.weight")["model.norm.weight"]
     first = {"hint_vs_correct": "wrong", "correct_vs_hint": "answer"}[kind]
@@ -47,7 +47,7 @@ def layer_attribution(record, a):
 
 
 def head_attribution(record, a):
-    """Beitrag jedes Heads [N, Layer, Head] ueber die o_proj-Spalten dieses Heads."""
+    """Contribution of each head [N, layer, head] through the o_proj columns of that head."""
     n, depth = record["heads"].shape[:2]
     out = torch.empty(n, depth, HEADS)
     for layer in range(depth):
@@ -61,17 +61,17 @@ def head_attribution(record, a):
 
 
 def hint_letter_position(tok, ids):
-    """Position des Buchstabens im Hinweissatz: letztes Vorkommen von 'is (' + Buchstabe."""
+    """Position of the letter in the hint sentence: last occurrence of 'is (' + letter."""
     letters = set(letter_token_ids(tok))
     marker = tok(" is (", add_special_tokens=False).input_ids
     for pos in range(len(ids) - 1, len(marker) - 1, -1):
         if ids[pos] in letters and ids[pos - len(marker) : pos] == marker and pos < len(ids) - 1:
             return pos
-    raise ValueError("Hinweis nicht gefunden")
+    raise ValueError("Hint not found")
 
 
 def attention_to(record, positions):
-    """Attention [N, Layer, Head] von der letzten Position auf die gegebene Position je Prompt."""
+    """Attention [N, layer, head] from the last position to the given position per prompt."""
     return torch.stack([record["attention"][i][:, :, p] for i, p in enumerate(positions)])
 
 

@@ -1,4 +1,4 @@
-"""Experiment 6: Hinweis-Richtung aus den Keys von Layer 16 entfernen, voll und halb."""
+"""Experiment 6: remove the hint direction from the keys of layer 16, full and half strength."""
 import torch
 
 from editor.screen import run
@@ -9,7 +9,7 @@ GROUPS = 2
 
 
 def hint_key_directions():
-    """Je KV-Gruppe: Mittel der Hinweis-Keys, orthogonal zum Mittel der Options-Keys, normiert."""
+    """Per KV group: mean hint key, orthogonal to the mean option key, normalised."""
     keys = torch.load(cfg.LOG_DIR / "keys16.pt")
     directions = []
     for group in range(GROUPS):
@@ -21,7 +21,7 @@ def hint_key_directions():
 
 
 def key_deltas(layer=16, strength=1.0, directions=None):
-    """Delta = -s d d^T W im Zeilenblock jeder KV-Gruppe von k_proj; Rang 1 je Gruppe."""
+    """Delta = -s d d^T W in the row block of each KV group of k_proj; rank 1 per group."""
     directions = directions or hint_key_directions()
 
     def build(model):
@@ -38,5 +38,5 @@ def key_deltas(layer=16, strength=1.0, directions=None):
 
 
 if __name__ == "__main__":
-    run("Hinweis-Key in Layer 16 entfernen", "editor/exp06_keyedit.py",
+    run("Remove the hint key in layer 16", "editor/exp06_keyedit.py",
         {"k16_full": key_deltas(), "k16_half": key_deltas(strength=0.5)}, ("C0", "C1", "C2", "C3"), 64)

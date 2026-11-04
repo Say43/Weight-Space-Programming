@@ -1,4 +1,4 @@
-"""Faehigkeits-Waechter: MMLU, Perplexitaet auf wikitext-2 und offene Sichtpruefungs-Prompts."""
+"""Capability guards: MMLU, perplexity on wikitext-2 and open prompts for visual inspection."""
 import numpy as np
 import torch
 from datasets import load_dataset

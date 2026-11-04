@@ -1,4 +1,4 @@
-"""Experiment-Buchfuehrung: Budget pruefen und jeden Lauf in logs/experiments.jsonl festhalten."""
+"""Experiment bookkeeping: checks the budget and records each run in logs/experiments.jsonl."""
 import json
 from datetime import datetime, timezone
 
@@ -25,12 +25,12 @@ def used(track):
 
 
 def start(track, hypothesis, code_path, n_items):
-    """Bucht das Experiment vor dem Lauf, damit auch abgestuerzte Laeufe das Budget belasten."""
+    """Books the experiment before the run, so that crashed runs also count against the budget."""
     if track in BUDGET:
         if used(track) >= BUDGET[track]:
-            raise RuntimeError(f"Budget fuer {track} ist erschoepft")
+            raise RuntimeError(f"Budget for {track} is exhausted")
         if n_items > MAX_ITEMS:
-            raise RuntimeError(f"{n_items} Items ueberschreiten das Limit von {MAX_ITEMS}")
+            raise RuntimeError(f"{n_items} items exceed the limit of {MAX_ITEMS}")
     number = used(track) + 1
     _append({"track": track, "number": number, "phase": "start", "hypothesis": hypothesis,
              "code_path": code_path, "n_items": n_items,

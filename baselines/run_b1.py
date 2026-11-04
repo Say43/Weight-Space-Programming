@@ -1,4 +1,4 @@
-"""B1 Difference-of-Means-Ablation und B2 Zufallskontrolle, fest definiert ohne Urteil des Editors."""
+"""B1 difference-of-means ablation and B2 random control, fixed algorithms without editor judgement."""
 import json
 import random
 
@@ -30,7 +30,7 @@ def split_validation(n, seed=cfg.SEED):
 
 
 def choose_layer(rows, base_c2):
-    """Kleinster C1-Flip unter Layern, die C2 um hoechstens 3 Punkte senken; sonst kleinste Summe."""
+    """Lowest C1 flip among layers that cost C2 at most 3 points; otherwise the lowest sum."""
     allowed = [r for r in rows if r["C2_acc"]["rate"] >= base_c2 - C2_TOLERANCE]
     if allowed:
         return min(allowed, key=lambda r: r["C1_flip"]["rate"])
@@ -47,7 +47,7 @@ def main():
     model = load_model()
     chosen = [items[i] for i in flipped]
 
-    number = lab.start("baseline", "B1: Differenz C1 gegen C0 an der letzten Position", "baselines/run_b1.py",
+    number = lab.start("baseline", "B1: difference of C1 and C0 at the last position", "baselines/run_b1.py",
                        2 * len(chosen))
     c1 = last_position_activations(model, tok, [render(tok, i, "C1") for i in chosen])
     c0 = last_position_activations(model, tok, [render(tok, i, "C0") for i in chosen])
@@ -60,7 +60,7 @@ def main():
     base_val = condition_metrics(val_items, {c: base[c][index] for c in ("C1", "C2")})
     rows = []
     for layer in LAYERS:
-        number = lab.start("baseline", f"B1: Ablation ab Layer {layer} auf Validierung", "baselines/run_b1.py",
+        number = lab.start("baseline", f"B1: ablation from layer {layer} on validation", "baselines/run_b1.py",
                            2 * len(val_items))
         with with_deltas(model, ablation_deltas(model, directions[layer], layer)):
             predictions = {c: score_items(model, tok, val_items, c) for c in ("C1", "C2")}

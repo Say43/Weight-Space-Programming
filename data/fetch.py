@@ -1,4 +1,4 @@
-"""Laedt Modell und Datensaetze auf gepinnten Commits und prueft das Modell gegen den Hub."""
+"""Downloads the model and datasets at pinned commits and checks the model against the Hub."""
 import hashlib
 import json
 
@@ -26,7 +26,7 @@ def fetch_model(repo, rev):
     ok = actual == expected["model.safetensors"]
     print(json.dumps({"repo": repo, "rev": rev, "path": path, "sha256": actual, "matches_hub": ok}))
     if not ok:
-        raise SystemExit("Pruefsumme des Modells stimmt nicht mit dem Hub ueberein.")
+        raise SystemExit("Model checksum does not match the Hub.")
     return path
 
 

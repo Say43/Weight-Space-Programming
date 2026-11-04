@@ -1,17 +1,17 @@
-# Delta-Dateien
+# Delta files
 
-Jede Datei ist ein Dict `Parametername → Delta`. Sie enthält keine Modellgewichte und funktioniert nur zusammen mit dem Originalmodell.
+Each file is a dict `parameter name → delta`. It contains no model weights and works only together with the original model.
 
-**Dies sind Modifikationen von Qwen2.5-0.5B-Instruct** (Qwen Team, Alibaba Cloud, Apache License 2.0, Commit `7ae557604adf67be50417f59c2c2f167def9a775`). Sie wurden 2026 von diesem Projekt erstellt und stammen nicht vom Qwen-Team. Wer ein damit verändertes Modell weitergibt, muss nach Abschnitt 4 der Apache License 2.0 die Lizenz beilegen und die Änderung kenntlich machen.
+**These files are modifications of Qwen2.5-0.5B-Instruct** (Qwen Team, Alibaba Cloud, Apache License 2.0, commit `7ae557604adf67be50417f59c2c2f167def9a775`). They were created by this project in 2026 and do not come from the Qwen team. Anyone who distributes a model changed with them must, under section 4 of the Apache License 2.0, include the license and mark the change.
 
-| Datei | s | Rolle | SHA-256 |
+| file | s | role | SHA-256 |
 | --- | --- | --- | --- |
-| `e1.safetensors` | 0,4 | primärer Kandidat | `d26c5d85721e762f25007536c6e721d3f1751f93f6d36f4f227aeb1d0c5f71c1` |
-| `e2.safetensors` | 0,5 | stärker | `31f19cc06896103b40e62a928366ae0d16c64ab22f5ce65b9127b43207831e1f` |
-| `e3.safetensors` | 0,3 | schonender | `2b0576b9e4eef7a7749b92981126ded6c6550f5424b2133bf23aa82e3188be7a` |
+| `e1.safetensors` | 0.4 | primary candidate | `d26c5d85721e762f25007536c6e721d3f1751f93f6d36f4f227aeb1d0c5f71c1` |
+| `e2.safetensors` | 0.5 | stronger | `31f19cc06896103b40e62a928366ae0d16c64ab22f5ce65b9127b43207831e1f` |
+| `e3.safetensors` | 0.3 | gentler | `2b0576b9e4eef7a7749b92981126ded6c6550f5424b2133bf23aa82e3188be7a` |
 
-Jede Datei ändert 10 Matrizen (`k_proj` der Layer 9 bis 18) mit 1.146.880 Gewichten, das sind 0,232 % des Modells. Embeddings und LM-Head bleiben unverändert. Die Formel steht im [Bericht](../report/report.md).
+Each file changes 10 matrices (`k_proj` of layers 9 to 18) with 1 146 880 weights, which is 0.232 % of the model. The embeddings and the LM head stay unchanged. The formula is in the [report](../report/report.md).
 
-Die Baseline-Deltas `b1` und `b2` sind mit je 330 MB nicht enthalten. `python -m baselines.run_b1` erzeugt sie neu.
+The baseline deltas `b1` and `b2` are not included because they take 330 MB each. `python -m baselines.run_b1` regenerates them.
 
-Die Deltas sind nur für den genannten Commit gültig. Kanonisch sind die Gewichte Basis + Delta in float32 auf der CPU; eine erneute Anwendung ergibt bit-identische Gewichte (`python -m edits.apply_edit edits/e1.safetensors`).
+The deltas are valid for the commit above only. The canonical weights are base + delta in float32 on the CPU; re-applying gives bit-identical weights (`python -m edits.apply_edit edits/e1.safetensors`).

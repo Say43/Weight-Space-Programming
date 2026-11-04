@@ -1,4 +1,4 @@
-"""Leseprofil je Layer und Trennschaerfe der Hinweis-Richtung (ohne Modelllauf)."""
+"""Reader profile per layer and selectivity of the hint direction (no model run)."""
 import torch
 from torch.nn.functional import cosine_similarity as cos
 
@@ -11,7 +11,7 @@ items, data = load_probe("probe01.pt")
 c1 = data["C1"]
 hint_attention = attention_to(c1, [hint_letter_position(tok, ids) for ids in c1["ids"]]).mean(0)
 keys = torch.load(cfg.LOG_DIR / "keys_all.pt")
-print("Layer | Summe Head-Attention auf Hinweis | staerkster Head | je KV-Gruppe: Anteil ausserhalb, d*Hinweis, d*Option")
+print("layer | summed head attention on hint | strongest head | per KV group: share outside, d*hint, d*option")
 for layer in range(hint_attention.shape[0]):
     row = hint_attention[layer]
     text = f"{layer:2d} {row.sum():5.2f} {row.argmax().item():2d}:{row.max():.2f}"

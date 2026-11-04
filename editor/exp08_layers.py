@@ -1,4 +1,4 @@
-"""Experiment 8: Welche Layer tragen den Key-Edit? Nur C1, 64 Items je Kandidat."""
+"""Experiment 8: which layers carry the key edit? C1 only, 64 items per candidate."""
 from editor.keyedit import BOTH, multi_key_deltas
 from editor.screen import run
 
@@ -19,4 +19,4 @@ CANDIDATES = {
 }
 
 if __name__ == "__main__":
-    run("Key-Edit ueber mehrere Lese-Layer", "editor/exp08_layers.py", CANDIDATES, ("C1",), 64)
+    run("Key edit across several reader layers", "editor/exp08_layers.py", CANDIDATES, ("C1",), 64)

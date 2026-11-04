@@ -1,4 +1,4 @@
-"""Misst Kandidaten-Edits auf einem festen Teil von fit. Ein Lauf ist ein Experiment."""
+"""Measures candidate edits on a fixed part of fit. One run is one experiment."""
 import json
 import random
 import sys
@@ -18,7 +18,7 @@ HEAD_DIM = 64
 
 
 def dev_items(n, seed=cfg.SEED):
-    """Feste Zufallsauswahl aus fit samt Index, damit Laeufe vergleichbar bleiben."""
+    """Fixed random sample of fit with its indices, so that runs stay comparable."""
     items = load_train()
     fit, _ = split_validation(len(items))
     picked = random.Random(f"{seed}:dev").sample(fit, n)
@@ -26,7 +26,7 @@ def dev_items(n, seed=cfg.SEED):
 
 
 def head_scale_deltas(model, scales):
-    """Skaliert die o_proj-Spalten einzelner Heads; scales: {(layer, head): faktor}."""
+    """Scales the o_proj columns of single heads; scales: {(layer, head): factor}."""
     params = dict(model.named_parameters())
     deltas = {}
     for (layer, head), factor in scales.items():
@@ -39,7 +39,7 @@ def head_scale_deltas(model, scales):
 
 
 def run(track_note, code_path, candidates, conditions, n, model=None, tok=None):
-    """candidates: Name -> Funktion(model) -> Deltas. Bucht einen Lauf und druckt eine Zeile je Kandidat."""
+    """candidates: name -> function(model) -> deltas. Books one run and prints one line per candidate."""
     tok = tok or load_tokenizer()
     model = model or load_model()
     index, items = dev_items(n)

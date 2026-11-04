@@ -1,4 +1,4 @@
-"""Experiment 4: Keys und Queries aus Layer 16 in C0, C1, C3 aufzeichnen."""
+"""Experiment 4: record keys and queries of layer 16 in C0, C1, C3."""
 import numpy as np
 import torch
 
@@ -48,14 +48,14 @@ def main():
     fit, _ = split_validation(len(items))
     wrong = np.array([letter_index(i["wrong"]) for i in items])
     flipped = [i for i in fit if base["C1"][i].item() == wrong[i]][:N]
-    number = lab.start("editor", "Keys des Hinweises gegen Keys der Optionen in Layer 16", "editor/exp04_keys.py",
+    number = lab.start("editor", "Keys of the hint against keys of the options in layer 16", "editor/exp04_keys.py",
                        N * len(CONDITIONS))
     tok = load_tokenizer()
     model = load_model()
     data = {c: record_keys(model, tok, [render(tok, items[i], c) for i in flipped], LAYER) for c in CONDITIONS}
     torch.save({"indices": flipped, "data": data}, cfg.LOG_DIR / "probe04.pt")
     lab.finish("editor", number, {"saved": "logs_05b/probe04.pt", "items": len(flipped)})
-    print("fertig", len(flipped))
+    print("done", len(flipped))
 
 
 if __name__ == "__main__":

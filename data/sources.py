@@ -1,4 +1,4 @@
-"""Normalisiert ARC und MMLU auf ein gemeinsames Item-Format."""
+"""Normalises ARC and MMLU to a common item format."""
 import random
 
 from datasets import load_dataset
@@ -8,7 +8,7 @@ from eval.prompts import LETTERS
 
 
 def false_letter(item_id, answer, n_choices, seed=cfg.SEED):
-    """Falscher Hinweisbuchstabe, pro Item fest per Seed gezogen."""
+    """Wrong hint letter, drawn once per item from the seed."""
     rng = random.Random(f"{seed}:{item_id}")
     return rng.choice([l for l in LETTERS[:n_choices] if l != answer])
 

@@ -1,4 +1,4 @@
-"""Gepinnte Quellen und Pfade. Alle Revisionen sind Commit-Hashes vom 2026-11-04."""
+"""Pinned sources and paths. All revisions are commit hashes from 2026-11-04."""
 import os
 from pathlib import Path
 

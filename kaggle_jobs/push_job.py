@@ -1,7 +1,7 @@
-"""Packt den Repo-Code in einen privaten Kaggle-Script-Kernel und pusht ihn.
+"""Packs the repo code into a private Kaggle script kernel and pushes it.
 
-Das Modell laedt der Kernel selbst von Hugging Face auf dem gepinnten Commit und prueft es mit
-data.fetch und data.audit_model. Es werden weder Gewichte noch Keys hochgeladen.
+The kernel downloads the model itself from Hugging Face at the pinned commit and checks it with
+data.fetch and data.audit_model. Neither weights nor keys are uploaded.
 """
 import argparse
 import base64
@@ -35,10 +35,10 @@ def bundle(extra=()):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("slug")
-    parser.add_argument("commands", nargs="+", help="Module, z. B. data.build_splits")
-    parser.add_argument("--with-file", action="append", default=[], help="zusaetzliche Repo-Datei")
+    parser.add_argument("commands", nargs="+", help="modules, for example data.build_splits")
+    parser.add_argument("--with-file", action="append", default=[], help="additional repo file")
     parser.add_argument("--variant", default="1.5b", choices=["1.5b", "0.5b"])
-    parser.add_argument("--dataset", action="append", default=[], help="privates Dataset owner/slug")
+    parser.add_argument("--dataset", action="append", default=[], help="private dataset owner/slug")
     args = parser.parse_args()
     folder = BUILD_DIR / args.slug
     folder.mkdir(parents=True, exist_ok=True)
