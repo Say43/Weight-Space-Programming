@@ -1,0 +1,26 @@
+{
+  "e1": {
+    "strength": 0.4,
+    "matrices": 10,
+    "changed_params": 1146880,
+    "changed_share": 0.002321465445790025,
+    "max_delta_rank": 2,
+    "sha256": "d26c5d85721e762f25007536c6e721d3f1751f93f6d36f4f227aeb1d0c5f71c1"
+  },
+  "e2": {
+    "strength": 0.5,
+    "matrices": 10,
+    "changed_params": 1146880,
+    "changed_share": 0.002321465445790025,
+    "max_delta_rank": 2,
+    "sha256": "31f19cc06896103b40e62a928366ae0d16c64ab22f5ce65b9127b43207831e1f"
+  },
+  "e3": {
+    "strength": 0.3,
+    "matrices": 10,
+    "changed_params": 1146880,
+    "changed_share": 0.002321465445790025,
+    "max_delta_rank": 2,
+    "sha256": "2b0576b9e4eef7a7749b92981126ded6c6550f5424b2133bf23aa82e3188be7a"
+  }
+}

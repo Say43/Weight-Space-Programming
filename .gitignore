@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+.cache/
+kernel_out/
+
+# Enthalten Fragen aus ARC im Wortlaut (CC BY-SA 4.0). data.build_splits erzeugt sie neu.
+data/splits*/
+
+# Lokale Pfade und grosse Zwischenstaende
+logs*/*.log
+logs*/*.pt
+
+# Mit je 330 MB zu gross fuer GitHub. baselines.run_b1 erzeugt sie neu.
+edits/b1.safetensors
+edits/b2.safetensors

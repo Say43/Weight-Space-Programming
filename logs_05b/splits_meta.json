@@ -1,0 +1,18 @@
+{
+  "pool": 7732,
+  "c0_acc_pool": 0.631919296430419,
+  "known": {
+    "ARC-Easy": 3585,
+    "ARC-Challenge": 1301
+  },
+  "train": {
+    "ARC-Easy": 733,
+    "ARC-Challenge": 266
+  },
+  "test": {
+    "ARC-Easy": 733,
+    "ARC-Challenge": 266
+  },
+  "train_sha256": "1b7d14f2db0a14bc1fce546c13056dd6083b796a5657f217f4dd326525af8764",
+  "test_sha256": "8a6941d3edb74f4d080d17f688cd17bbc9c95ad2b96ad54fb35bd5664e3814f3"
+}

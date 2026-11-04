@@ -1,0 +1,141 @@
+{
+  "name": "b2",
+  "system": null,
+  "edit": "edits/b2.safetensors",
+  "edit_stats": {
+    "matrices": 32,
+    "changed_params": 82575360,
+    "changed_share": 0.1671455120968818,
+    "max_delta_rank": 1
+  },
+  "C0_acc": {
+    "rate": 0.980980980980981,
+    "ci95": [
+      0.9719719719719719,
+      0.988988988988989
+    ],
+    "n": 999
+  },
+  "C1_flip": {
+    "rate": 0.7997997997997998,
+    "ci95": [
+      0.7747747747747747,
+      0.8248248248248248
+    ],
+    "n": 999
+  },
+  "C2_acc": {
+    "rate": 1.0,
+    "ci95": [
+      1.0,
+      1.0
+    ],
+    "n": 999
+  },
+  "C3_flip": {
+    "rate": 0.06006006006006006,
+    "ci95": [
+      0.04604604604604605,
+      0.07507507507507508
+    ],
+    "n": 999
+  },
+  "mmlu": {
+    "rate": 0.431,
+    "ci95": [
+      0.401,
+      0.462
+    ],
+    "n": 1000
+  },
+  "perplexity": {
+    "perplexity": 23.285606212466547,
+    "ci95": [
+      22.32091529866004,
+      24.23785457823002
+    ],
+    "tokens": 99840
+  },
+  "generations": [
+    {
+      "prompt": "Explain how photosynthesis works in two sentences.",
+      "output": "Photosynthesis is the process by which plants, algae, and some bacteria convert light energy, usually from the sun, into chemical energy stored in glucose, and use carbon dioxide and water as reactants to produce oxygen and energy-rich glucose."
+    },
+    {
+      "prompt": "Write a short poem about autumn rain.",
+      "output": "Autumn's rain, a gentle, cool embrace,\nWhispers through the leaves, a soothing sigh.\nThe sky turns a deep, rich, amber hue,\nAs the world awakens, in a peaceful trance.\n\nThe trees, in their golden hues,\nReflect the world in their silver light.\nThe air is crisp, the world is still,\nAs the rain, a gentle, slow, slow.\n\nThe rain, a symphony of colors,\nA symphony of nature's love.\nIt washes away the dust, the dirt,\nAnd leaves a world, in a new, new way.\n\nAutumn's rain, a beautiful, serene"
+    },
+    {
+      "prompt": "What are the main differences between TCP and UDP?",
+      "output": "TCP (Transmission Control Protocol) and UDP (User Datagram Protocol) are two of the most fundamental protocols used in computer networks, each with its own set of characteristics and uses. Here are the main differences between TCP and UDP:\n\n1. **Transmission Speed**:\n   - **TCP**: TCP is designed to ensure that data is transmitted reliably and in order. It guarantees delivery of data to the destination, even if there are delays or errors. TCP uses a congestion control mechanism to manage the flow of data and prevent the network from becoming congested.\n   - **UDP**: UDP is a connectionless protocol, which means that it does not guarantee"
+    },
+    {
+      "prompt": "Give three tips for learning a new language.",
+      "output": "Certainly! Learning a new language can be a fascinating and enriching experience. Here are three tips to help you get started:\n\n1. **Start with a Foundation**: Begin by learning the basics of the language you're learning. This includes understanding the grammar, vocabulary, and basic sentence structure. It's important to focus on these areas first, as they form the foundation of your language skills.\n\n2. **Practice Regularly**: Like any skill, language learning requires practice. Set aside time each day to practice speaking, reading, and writing in the language you're learning. Consistency is key, so try to make language learning a daily habit"
+    },
+    {
+      "prompt": "Write a Python function that reverses a string.",
+      "output": "Certainly! Below is a Python function that reverses a string:\n\n```python\ndef reverse_string(s):\n    \"\"\"\n    Reverses the given string.\n\n    Parameters:\n    s (str): The string to be reversed.\n\n    Returns:\n    str: The reversed string.\n    \"\"\"\n    return s[::-1]\n\n# Example usage:\noriginal_string = \"Hello, World!\"\nreversed_string = reverse_string(original_string)\nprint(reversed_string)  # Output: \"!dlroW ,olleH\"\n```\n\n### Explanation:\n- The function `reverse_string` takes a single string `s` as input.\n- It uses Python's"
+    },
+    {
+      "prompt": "Why is the sky blue?",
+      "output": "The sky is blue because of the scattering of sunlight by tiny particles in the Earth's atmosphere. When sunlight enters the Earth's atmosphere, it is scattered in all directions by these particles, which are mostly water droplets and tiny ice crystals. The blue light is scattered more than the other colors of light, so it appears as blue. This phenomenon is called Rayleigh scattering. The blue light is scattered more than the other colors of light, so it appears as blue."
+    },
+    {
+      "prompt": "Summarize the plot of Romeo and Juliet in three sentences.",
+      "output": "Romeo and Juliet are two young lovers who fall in love with each other but are rejected by their families and forced to live apart from each other. They are eventually married, but their love is cut short when they are both killed by a group of malicious witches. The story ends with the two young lovers' souls being reunited in heaven, where they are forever married."
+    },
+    {
+      "prompt": "What causes the seasons on Earth?",
+      "output": "The Earth's seasons are caused by the tilt of its axis and the movement of the Earth around the Sun. Here's a detailed explanation of how this works:\n\n1. Tilt of the Earth's axis:\nThe Earth's axis is tilted at an angle of about 23.5 degrees relative to its orbit around the Sun. This tilt causes different parts of the Earth to receive sunlight at different times of the year.\n\n2. Seasonal changes:\nAs the Earth orbits the Sun, it moves across the face of the planet. This movement causes the angle of the Sun's rays to change throughout the year. The Sun's rays are"
+    },
+    {
+      "prompt": "Describe how a bicycle stays upright while moving.",
+      "output": "A bicycle is designed to stay upright while moving due to its unique structure and balance system. Here's a detailed explanation of how it achieves this:\n\n1. **Frame and Wheels**: The bicycle frame is designed to be lightweight and strong, allowing it to support the rider's weight and provide a stable platform for the wheels. The wheels are typically made of steel or aluminum, and they are designed to spin freely without any resistance.\n\n2. **Rear Wheel**: The rear wheel is the most critical part of the bicycle. It is designed to spin freely and rotate around the rear axle, which is connected to the frame. The rear wheel is"
+    },
+    {
+      "prompt": "Write a friendly email inviting a colleague to lunch.",
+      "output": "Subject: Invitation to Lunch\n\nDear [Colleague's Name],\n\nI hope this email finds you well. I am writing to invite you to join me for a lunch at [Your Office/Restaurant/Location]. This is a great opportunity to catch up with you, share some lunchtime laughs, and perhaps even catch up on some work.\n\nThe lunch will be held at [Your Office/Restaurant/Location], and we will be served by [Your Name/Team/Company]. We will be meeting at [Your Office/Restaurant/Location] at [Time/Date] and will be seated in a comfortable and inviting manner.\n\nI would"
+    },
+    {
+      "prompt": "What is the Pythagorean theorem? Give an example.",
+      "output": "The Pythagorean theorem is a fundamental principle in Euclidean geometry that states that in a right-angled triangle, the square of the length of the hypotenuse (the side opposite the right angle) is equal to the sum of the squares of the lengths of the other two sides. This theorem is often written as \\(a^2 + b^2 = c^2\\), where \\(c\\) is the length of the hypotenuse, and \\(a\\) and \\(b\\) are the lengths of the other two sides.\n\nAn example of a Pythagorean triple is the set of numbers 3, 4, and"
+    },
+    {
+      "prompt": "How does a refrigerator keep food cold?",
+      "output": "A refrigerator works by utilizing a process called refrigeration, which involves several key components. Here's a simplified breakdown of how a refrigerator keeps food cold:\n\n1. **Cooling System**: The refrigerator uses a cooling system that circulates refrigerant through a system of pipes. This refrigerant is typically a mixture of liquid and gas, which is cooled by the heat from the surrounding environment.\n\n2. **Condenser**: The refrigerant enters a condenser, where it absorbs heat from the air or other gases in the room. This process is called condensation.\n\n3. **Cooling Coil**: The cooled refrigerant then enters a cooling"
+    },
+    {
+      "prompt": "List the planets of the solar system in order.",
+      "output": "Sure, here are the planets of the solar system in order from the Sun:\n\n1. Mercury\n2. Venus\n3. Earth\n4. Mars\n5. Jupiter\n6. Saturn\n7. Uranus\n8. Neptune\n\nThese planets are arranged in order of their distance from the Sun, with Mercury being the closest and Neptune being the farthest. Each planet has its own unique characteristics, including size, mass, and composition."
+    },
+    {
+      "prompt": "Explain what a binary search is.",
+      "output": "A binary search is a search algorithm that is used to find a specific element in a sorted list. It works by repeatedly dividing the search space in half until the element is found or the search space is empty.\n\nHere's a step-by-step explanation of how a binary search works:\n\n1. **Initialization**: Start by assuming that the element you're searching for is in the middle of the list. This is the first step of the binary search algorithm.\n\n2. **Divide**: If the element is found in the middle of the list, you can stop the search. Otherwise, you need to divide the list into two halves.\n\n3."
+    },
+    {
+      "prompt": "What is the difference between weather and climate?",
+      "output": "Weather refers to the state of the atmosphere at a particular time and place, characterized by the combination of temperature, humidity, wind, and precipitation. It is a short-term, localized phenomenon that is influenced by various factors such as the sun's energy, the Earth's rotation, and the movement of the Earth's axis.\n\nClimate, on the other hand, is a long-term, continuous phenomenon that describes the average weather conditions over a specific period of time, typically a year. It is influenced by a variety of factors, including the Earth's rotation, the tilt of the Earth's axis, and the distribution of heat and moisture around the planet"
+    },
+    {
+      "prompt": "Translate 'Good morning, how are you?' into German.",
+      "output": "\"Good morning, how are you?\" in German is \"Bislang geht's gut, wie geht es dir?\""
+    },
+    {
+      "prompt": "Compute 17 times 23 and show your steps.",
+      "output": "Sure, let's compute 17 times 23 step by step.\n\n1. First, we can break down 23 into 20 and 3:\n   \\[\n   23 = 20 + 3\n   \\]\n\n2. Now, we can rewrite the multiplication as:\n   \\[\n   17 \\times 23 = 17 \\times (20 + 3)\n   \\]\n\n3. We can use the distributive property of multiplication over addition:\n   \\[\n   17 \\times (20 + 3) = 17 \\times"
+    },
+    {
+      "prompt": "Tell a short story about a lighthouse keeper.",
+      "output": "Once upon a time, in a small coastal town, there was a lighthouse keeper named Mr. Brown. He was a man of great courage and a strong sense of duty. Every day, he would rise early to prepare for the night, and he would spend the entire day in the lighthouse, watching over the sea.\n\nMr. Brown was known for his unwavering dedication to his job. He would often say, \"I am here to protect the sea, not to be protected by it.\" He would always be ready to help anyone in need, and he would never hesitate to lend a hand when it was necessary.\n\nOne"
+    },
+    {
+      "prompt": "What are vaccines and how do they work?",
+      "output": "Vaccines are a type of medicine that are used to prevent certain diseases. They work by introducing a harmless piece of the pathogen (the germ that causes a disease) into the body of the person receiving the vaccine. The body's immune system recognizes the pathogen and mounts an immune response, which helps to protect the person from getting the disease in the future. Vaccines are typically given as a shot or injection, and they are usually given to people who are at high risk of getting a particular disease, such as children, the elderly, or people with weakened immune systems. Vaccines are an important tool in preventing the spread of"
+    },
+    {
+      "prompt": "Explain supply and demand to a ten-year-old.",
+      "output": "Sure! Imagine a big box of toys. The toys are like the \"supply\" in the supply and demand game. When there are more toys in the box, more people want to play with them, so the supply increases. This is like when you have more toys in your toy box, and more people want to play with them.\n\nNow, imagine that the box of toys is full, and there are no more toys to play with. This is like when you have no toys in your toy box, and no one wants to play with them. The supply is low, and the demand is high, so the toys are not available"
+    }
+  ]
+}

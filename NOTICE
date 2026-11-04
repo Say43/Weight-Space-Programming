@@ -1,0 +1,59 @@
+Weight-Space Programming gegen Sykophanz
+Copyright 2026 Say43
+
+Dieses Projekt steht unter der Apache License, Version 2.0 (siehe LICENSE).
+
+MODIFIKATION EINES DRITTWERKS
+-----------------------------
+Die Dateien edits/e1.safetensors, edits/e2.safetensors und edits/e3.safetensors
+sind Differenzen (Deltas) zu den Gewichten des folgenden Werks und damit
+Modifikationen davon:
+
+  Qwen2.5-0.5B-Instruct, Qwen Team, Alibaba Cloud
+  https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct
+  Commit 7ae557604adf67be50417f59c2c2f167def9a775
+  Lizenz: Apache License, Version 2.0
+
+Geaendert wurde im Jahr 2026 durch dieses Projekt: k_proj der Layer 9 bis 18,
+1.146.880 von 494.032.768 Gewichten. Die vollstaendige Beschreibung steht in
+edits/README.md und report/report.md. Die Originalgewichte sind nicht enthalten.
+Dieses Projekt steht in keiner Verbindung zu Alibaba Cloud oder dem Qwen-Team.
+
+GENUTZT, ABER NICHT ENTHALTEN
+-----------------------------
+Die folgenden Werke werden zur Laufzeit von den Originalquellen geladen. Keines
+davon ist Teil dieses Repos, und es gilt jeweils deren eigene Lizenz.
+
+Qwen2.5-1.5B-Instruct, Qwen Team, Alibaba Cloud
+  https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct
+  Commit 989aa7980e4cf806f80c7fef2b1adb7bc71aa306, Apache License 2.0
+
+ARC, AI2 Reasoning Challenge (allenai/ai2_arc)
+  P. Clark et al., "Think you have Solved Question Answering? Try ARC, the AI2
+  Reasoning Challenge", arXiv:1803.05457, 2018
+  https://huggingface.co/datasets/allenai/ai2_arc
+  Commit 210d026faf9955653af8916fad021475a3f00453, CC BY-SA 4.0
+
+MMLU (cais/mmlu)
+  D. Hendrycks et al., "Measuring Massive Multitask Language Understanding",
+  ICLR 2021
+  https://huggingface.co/datasets/cais/mmlu
+  Commit c30699e8356da336a370243923dbaf21066bb9fe, MIT License
+
+WikiText-2 (Salesforce/wikitext, wikitext-2-raw-v1)
+  https://huggingface.co/datasets/Salesforce/wikitext
+  Commit b08601e04326c79dfdd32d625aee71d232d685c3, CC BY-SA 3.0 und GFDL
+
+Die aggregierten Metriken in logs/, logs_05b/ und report/ sind eigene Messungen.
+Sie enthalten keine Fragen oder Texte aus diesen Datensaetzen.
+
+Die Bibliotheken in requirements.txt werden nicht mitgeliefert.
+
+BEZUG
+-----
+Der Versuch baut auf der Idee aus diesem Beitrag auf; es wurde kein Code oder
+Text daraus uebernommen:
+
+  R. T., "Weight-Space Programming"
+  https://rikiyat.github.io/blog/weight-space-programming/
+  Logs: https://github.com/RikiyaT/lm_understand-logs
